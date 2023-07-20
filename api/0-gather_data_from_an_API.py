@@ -13,23 +13,17 @@ def gather(empl_id):
     empl_url = f"{url}/{empl_id}"
     todo_url = f"{empl_url}/todos"
 
-    try:
-        empl_response = requests.get(empl_url)
-        todo_response = requests.get(todo_url)
-        empl_response.raise_for_status()
-        todo_response.raise_for_status()
-    except requests.exceptions.HTTPError:
-        return
-
+    empl_response = requests.get(empl_url)
+    todo_response = requests.get(todo_url)
     empl_data = empl_response.json()
     todo_data = todo_response.json()
 
     name = empl_data.get('name')
-    num_done = sum(1 for t in todo_data if t['completed'])
+    num_done = sum(1 for t in todo_data if t['completed'] is True)
 
     print(f"Employee {name} is done with tasks({len(todo_data)}/{num_done}):\n")
     for t in todo_data:
-        if t['completed']:
+        if t['completed'] is True:
             print(f"\t {t['title']}")
 
 if __name__ == "__main__":

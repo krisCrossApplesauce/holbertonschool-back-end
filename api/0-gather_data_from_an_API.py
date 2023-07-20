@@ -13,13 +13,11 @@ def display_employee_progress(employee_id):
     empl_url = f"{url}/user/{employee_id}"
     todo_url = f"{url}/todos"
 
-    empl_response = requests.get(empl_url)
-    empl_data = empl_response.json()
-    todo_response = requests.get(todo_url,
-                                 params={"userId": employee_id})
-    todo_data = todo_response.json()
+    empl_data = requests.get(empl_url).json()
+    todo_data = requests.get(todo_url,
+                                 params={"userId": employee_id}).json()
 
-    empl_name = empl_data["name"]
+    empl_name = empl_data.get("name")
     completed_tasks = [t["title"] for t in todo_data if t["completed"]]
     num_done = len(completed_tasks)
     num_total = len(todo_data)
@@ -32,4 +30,5 @@ def display_employee_progress(employee_id):
 if __name__ == "__main__":
     import sys
 
-    display_employee_progress(int(sys.argv[1]))
+    employee_id = int(sys.argv[1])
+    display_employee_progress(employee_id)

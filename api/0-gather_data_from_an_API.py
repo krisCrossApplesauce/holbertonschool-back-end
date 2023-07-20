@@ -9,11 +9,10 @@ import requests
 
 def display_employee_progress(employee_id):
     """ script must display to stdout the employee TODO list progress """
-    url = "https://jsonplaceholder.typicode.com"
-    empl_url = f"{url}/users/{employee_id}"
-    todo_url = f"{url}/todos"
+    user_url = "https://jsonplaceholder.typicode.com/user"
+    todo_url = "https://jsonplaceholder.typicode.com/todos"
 
-    empl_response = requests.get(empl_url)
+    empl_response = requests.get(f"{user_url}/{employee_id}")
     empl_data = empl_response.json()
     todo_response = requests.get(todo_url,
                                  params={"userId": employee_id})
@@ -27,7 +26,7 @@ def display_employee_progress(employee_id):
     print("Employee {} is done with tasks({}/{}):"
           .format(empl_name, num_done, num_total))
     for t in completed_tasks:
-        print("\t", t)
+        print("\t ", t)
 
 if __name__ == "__main__":
     import sys

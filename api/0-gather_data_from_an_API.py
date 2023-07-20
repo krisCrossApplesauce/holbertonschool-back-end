@@ -9,10 +9,11 @@ import requests
 
 def display_employee_progress(employee_id):
     """ script must display to stdout the employee TODO list progress """
-    user_url = "https://jsonplaceholder.typicode.com/user"
-    todo_url = "https://jsonplaceholder.typicode.com/todos"
+    url = "https://jsonplaceholder.typicode.com"
+    empl_url = f"{url}/user/{employee_id}"
+    todo_url = f"{url}/todos"
 
-    empl_response = requests.get(f"{user_url}/{employee_id}")
+    empl_response = requests.get(empl_url)
     empl_data = empl_response.json()
     todo_response = requests.get(todo_url,
                                  params={"userId": employee_id})
@@ -25,19 +26,10 @@ def display_employee_progress(employee_id):
 
     print("Employee {} is done with tasks({}/{}):"
           .format(empl_name, num_done, num_total))
-    for t in completed_tasks:
-        print("\t ", t)
+    for task in completed_tasks:
+        print(f"\t {task}")
 
 if __name__ == "__main__":
     import sys
 
-    if len(sys.argv) != 2:
-        print("I don't think this thing should end up mattering")
-        sys.exit(1)
-    else:
-        employee_id = int(sys.argv[1])
-        try:
-            display_employee_progress(employee_id)
-        except requests.exceptions.RequestException:
-            print("Well.. that didn't work \
-                  (as far as I'm aware, this shouldn't print for checker)")
+    display_employee_progress(int(sys.argv[1]))

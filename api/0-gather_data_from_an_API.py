@@ -5,10 +5,10 @@ for a given employee ID,
 returns information about his/her TODO list progress
 """
 import requests
-import sys
+
 
 def gather(empl_id):
-    """ script must display to stdout (print), the employee TODO list progress """
+    """ script must display to stdout the employee TODO list progress """
     url = "https://jsonplaceholder.typicode.com/users"
     empl_url = f"{url}/{empl_id}"
     todo_url = f"{empl_url}/todos"
@@ -21,10 +21,13 @@ def gather(empl_id):
     name = empl_data.get('name')
     num_done = sum(1 for t in todo_data if t['completed'] is True)
 
-    print(f"Employee {name} is done with tasks({len(todo_data)}/{num_done}):\n")
+    print(f"Employee {name} is done with \
+          tasks({len(todo_data)}/{num_done}):\n")
     for t in todo_data:
         if t['completed'] is True:
             print(f"\t {t['title']}")
 
 if __name__ == "__main__":
+    import sys
+
     gather(int(sys.argv[1]))

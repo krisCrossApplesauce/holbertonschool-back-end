@@ -24,17 +24,21 @@ def display_employee_progress(employee_id):
     num_done = len(completed_tasks)
     num_total = len(todo_data)
 
-    print(f"Employee {empl_name} is done with \
-          tasks({num_done}/{num_total}):")
+    print("Employee {} is done with tasks({}/{}):"
+          .format(empl_name, num_done, num_total))
     for t in completed_tasks:
-        print(f"\t{t}")
+        print("\t", t)
 
 if __name__ == "__main__":
     import sys
 
-    if len(sys.argv) == 2:
+    if len(sys.argv) != 2:
+        print("I don't think this thing should end up mattering")
+        sys.exit(1)
+    else:
+        employee_id = int(sys.argv[1])
         try:
-            display_employee_progress(int(sys.argv[1]))
+            display_employee_progress(employee_id)
         except requests.exceptions.RequestException:
             print("Well.. that didn't work \
-                  (as far as I'm aware, this shouldn't ever print)")
+                  (as far as I'm aware, this shouldn't print for checker)")

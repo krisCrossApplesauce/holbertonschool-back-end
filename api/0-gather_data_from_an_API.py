@@ -27,4 +27,4 @@ def gather(empl_id):
             print(f"\t {t['title']}")
 
 if __name__ == "__main__":
-    gather(sys.argv[1])
+    gather(int(sys.argv[1]))

@@ -10,7 +10,7 @@ import requests
 def display_employee_progress(employee_id):
     """ script must display to stdout the employee todo list progress """
     url = "https://jsonplaceholder.typicode.com"
-    empl_url = f"{url}/user/{employee_id}"
+    empl_url = f"{url}/users/{employee_id}"
     todo_url = f"{url}/todos"
 
     empl_data = requests.get(empl_url).json()

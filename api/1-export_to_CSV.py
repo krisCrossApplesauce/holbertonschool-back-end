@@ -25,11 +25,10 @@ def export_and_display_empl_prog(user_id):
     user_name = empl_data.get("username")
 
     with open(f'{user_id}.csv', 'w') as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         for todo in todo_data:
-            writer.writerow("\"{}\",\"{}\",\"{}\",\"{}\""
-                            .format(user_id, user_name,
-                                    todo["completed"], todo["title"]))
+            writer.writerow((user_id, user_name,
+                             todo["completed"], todo["title"]))
 
     print("Employee {} is done with tasks({}/{}):"
           .format(empl_name, num_done, num_total))

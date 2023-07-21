@@ -7,7 +7,7 @@ import csv
 import requests
 
 
-def export_and_display_empl_prog(user_id):
+def export_empl_prog_to_csv(user_id):
     """ why """
     url = "https://jsonplaceholder.typicode.com"
     empl_url = f"{url}/users/{user_id}"
@@ -18,11 +18,10 @@ def export_and_display_empl_prog(user_id):
                              params={"userId": user_id}).json()
 
     empl_name = empl_data.get("name")
+    user_name = empl_data.get("username")
     completed_tasks = [t["title"] for t in todo_data if t["completed"]]
     num_done = len(completed_tasks)
     num_total = len(todo_data)
-
-    user_name = empl_data.get("username")
 
     with open(f'{user_id}.csv', 'w') as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
@@ -39,4 +38,4 @@ def export_and_display_empl_prog(user_id):
 if __name__ == "__main__":
     import sys
 
-    export_and_display_empl_prog(int(sys.argv[1]))
+    export_empl_prog_to_csv(int(sys.argv[1]))

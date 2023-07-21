@@ -24,7 +24,7 @@ def export_and_display_empl_prog(user_id):
 
     user_name = empl_data.get("username")
 
-    with open('USER_ID.csv', 'w') as f:
+    with open(f'{user_id}.csv', 'w') as f:
         writer = csv.writer(f)
         for todo in todo_data:
             writer.writerow("\"{}\",\"{}\",\"{}\",\"{}\""
